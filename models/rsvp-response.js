@@ -27,6 +27,18 @@ const RSVPResponse = mongoose.model('RSVPResponse', {
     }, 
     additionalGuests: {
         type: Array
+    },
+    attending: {
+        type: Boolean,
+        required: true
+    },
+    mealPreference: {
+        type: String,
+        required: false
+    },
+    notes: {
+        type: String,
+        required: false
     }
 });
 
