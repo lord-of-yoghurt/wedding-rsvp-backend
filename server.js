@@ -12,6 +12,10 @@ app.use(bodyParser.json());
 
 // ******************************************* //
 
+app.get('/', (req, res) => {
+    res.send('Sup!');
+});
+
 app.post('/responses', (req, res) => {
     const {
         firstName, lastName, email, allergies, additionalGuests,
