@@ -21,7 +21,7 @@ const RSVPResponse = mongoose.model('RSVPResponse', {
     },
     allergies: {
         type: String,
-        required: true,
+        required: false,
         minlength: 1,
         trim: true
     }, 
@@ -29,7 +29,7 @@ const RSVPResponse = mongoose.model('RSVPResponse', {
         type: Array
     },
     attending: {
-        type: Boolean,
+        type: String,
         required: true
     },
     mealPreference: {
