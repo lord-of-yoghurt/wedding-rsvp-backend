@@ -13,6 +13,10 @@ const RSVPResponse = mongoose.model('RSVPResponse', {
         minlength: 1,
         trim: true
     },
+    printedName: {
+        type: String,
+        required: false
+    },
     email: {
         type: String,
         required: true,
@@ -22,7 +26,6 @@ const RSVPResponse = mongoose.model('RSVPResponse', {
     allergies: {
         type: String,
         required: false,
-        minlength: 1,
         trim: true
     }, 
     additionalGuests: {
