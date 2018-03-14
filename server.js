@@ -8,14 +8,15 @@ const { mongoose } = require('./db/mongoose');
 const { RSVPResponse } = require('./models/rsvp-response');
 
 const port = process.env.PORT || 3000;
-const origin = process.env.DATA_ORIGIN || 'http://localhost:3000';
-
-app.use(bodyParser.json());
+const origin = process.env.DATA_ORIGIN || 'http://localhost:9999';
 
 const corsOptions = {
-    origin,
-    optionsSuccessStatus: 200
+    origin
 };
+
+app.use(cors(corsOptions));
+
+app.use(bodyParser.json());
 
 // ******************************************* //
 
@@ -23,15 +24,15 @@ app.get('/', (req, res) => {
     res.send('Sup!');
 });
 
-app.post('/responses', cors(corsOptions), (req, res) => {
+app.post('/responses', (req, res) => {
     const {
-        firstName, lastName, email, allergies, additionalGuests,
-        attending, mealPreference, notes
+        firstName, lastName, email, printedName, allergies, 
+        additionalGuests, attending, mealPreference, notes
     } = req.body;
 
     const newResp = new RSVPResponse({
-        firstName, lastName, email, allergies, additionalGuests,
-        attending, mealPreference, notes
+        firstName, lastName, email, printedName, allergies, 
+        additionalGuests, attending, mealPreference, notes
     });
 
     newResp.save()
