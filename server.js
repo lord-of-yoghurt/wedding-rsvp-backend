@@ -8,7 +8,8 @@ const { mongoose } = require('./db/mongoose');
 const { RSVPResponse } = require('./models/rsvp-response');
 
 const port = process.env.PORT || 3000;
-const origin = process.env.DATA_ORIGIN || 'http://localhost:9999';
+const origin = process.env.DATA_ORIGIN || 'http://localhost:8080';
+const API_KEY = process.env.API_KEY || 'thisismytestkey';
 
 const corsOptions = {
     origin
@@ -22,6 +23,29 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.send('Sup!');
+});
+
+app.get('/responses', (req, res) => {
+    if (req.query.key !== API_KEY) {
+        res.status(400).send({
+            status: 'failure',
+            error: 'Invalid key. Don\'t be trying anything silly now!'
+        });
+    }
+    
+    RSVPResponse.find()
+        .then((responses) => {
+            res.send({
+                status: 'success',
+                responses
+            });
+        })
+        .catch((e) => {
+            res.status(400).send({
+                status: 'failure',
+                error: e
+            });
+        });
 });
 
 app.post('/responses', (req, res) => {
