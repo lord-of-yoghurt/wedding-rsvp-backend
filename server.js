@@ -1,6 +1,7 @@
 const express = require('express'),
       cors = require('cors'),
-      app = express();
+      app = express(),
+      path = require('path');
 
 const bodyParser = require('body-parser');
 
@@ -27,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.get('/responses', (req, res) => {
     if (req.query.key !== API_KEY) {
-        res.status(400).send({
+        res.send({
             status: 'failure',
             error: 'Invalid key. Don\'t be trying anything silly now!'
         });
@@ -62,6 +63,10 @@ app.post('/responses', (req, res) => {
     newResp.save()
         .then((doc) => res.send({ status: 'Peachy!' }))
         .catch((e) => res.status(400).send({ status: 'Not peachy.' }));
+});
+
+app.get('/wakemydyno.txt', (req, res) => {
+    res.sendFile(path.join(__dirname, 'wakemydyno.txt'));
 });
 
 // ******************************************* //
